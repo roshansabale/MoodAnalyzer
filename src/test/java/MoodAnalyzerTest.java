@@ -30,10 +30,6 @@ public class MoodAnalyzerTest {
 
     @Test
     public void analyzeMood_WhenNull_ThenReturnHappy() throws InvalidMoodException {
-        /*MoodAnalyzer moodAnalyzer = new MoodAnalyzer();
-        String mood= moodAnalyzer.analyzeMood(null);
-        Assert.assertEquals("happy",mood);
-        System.out.println("You have enterd Null mood now set to -> "+mood);*/
         MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
         InvalidMoodException exception = assertThrows(InvalidMoodException.class, () -> moodAnalyzer.analyzeMood());
         assertEquals(exception.getType() ,InvalidMoodException.ExceptionType.NullMood);
@@ -44,5 +40,14 @@ public class MoodAnalyzerTest {
         MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
         InvalidMoodException exception = assertThrows(InvalidMoodException.class, () -> moodAnalyzer.analyzeMood());
         assertEquals(exception.getType() ,InvalidMoodException.ExceptionType.NullMood);
+        System.out.println(exception.getMessage());
+    }
+
+    @Test
+    void analyseMood_WhenEmpty_ThenReturnInvalidMoodException() {
+        MoodAnalyzer moodAnalyzer = new MoodAnalyzer("");
+        InvalidMoodException exception = assertThrows(InvalidMoodException.class, () -> moodAnalyzer.analyzeMood());
+        assertEquals(exception.getType() ,InvalidMoodException.ExceptionType.EmptyMood);
+        System.out.println(exception.getMessage());
     }
 }

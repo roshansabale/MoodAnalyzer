@@ -3,18 +3,19 @@ public class MoodAnalyzer {
     public MoodAnalyzer(String message) {
         this.message = message;
     }
-    public String analyzeMood() throws InvalidMoodException {
+    public String analyzeMood() throws InvalidMoodException ,NullPointerException{
         String mood = null;
         try {
+            if (message.isEmpty()) {
+                throw new InvalidMoodException(InvalidMoodException.ExceptionType.EmptyMood, "Empty mood not allowed");
+            }
             if (message.contains("happy")) {
                 mood = "happy";
             } else if (message.contains("sad")) {
                 mood = "sad";
-            } else if(message==null) {
-                throw new InvalidMoodException(InvalidMoodException.ExceptionType.NullMood, "Null not allowed");
             }
-        }catch (NullPointerException e) {
-            throw new InvalidMoodException(InvalidMoodException.ExceptionType.NullMood,"Null not allowed");
+        }catch (NullPointerException exception) {
+            throw new InvalidMoodException(InvalidMoodException.ExceptionType.NullMood,"Null mood not allowed");
         }
         return mood;
     }
