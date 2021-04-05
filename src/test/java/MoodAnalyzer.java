@@ -1,15 +1,21 @@
 public class MoodAnalyzer {
-    public String analyzeMood(String message) {
-        String status = null;
+    private String message;
+    public MoodAnalyzer(String message) {
+        this.message = message;
+    }
+    public String analyzeMood() throws InvalidMoodException {
+        String mood = null;
         try {
             if (message.contains("happy")) {
-                status = "happy";
+                mood = "happy";
             } else if (message.contains("sad")) {
-                status = "sad";
+                mood = "sad";
+            } else if(message==null) {
+                throw new InvalidMoodException(InvalidMoodException.ExceptionType.NullMood, "Null not allowed");
             }
         }catch (NullPointerException e) {
-            status="happy";
+            throw new InvalidMoodException(InvalidMoodException.ExceptionType.NullMood,"Null not allowed");
         }
-        return status;
+        return mood;
     }
 }
